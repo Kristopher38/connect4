@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    Lorem ipsum <%= roomID %>
+    <div class="board">
+      <% for (let i = 0; i < 7; i++) { %>
+        <div class="column">
+          <% for (let j = 0; j < 6; j++) { %>
+            <div class="field disc d-red"></div>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+    
+    <%- include('partials/footer'); %>
+    <script>
+      const roomID = <%= roomID %>
+      const nick = "<%= nick %>"
+    </script>
+    <script src="/game.js" type="module"></script>
+  </body>
+</html>

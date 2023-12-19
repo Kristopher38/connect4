@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('partials/head'); %>
+  </head>
+  <body>
+    <ul id="room-list">
+
+    </ul>
+    <template id="room-entry-t">
+      <li class="room-entry">
+        <a class="room-url" href="">
+          <div class="room-name"></div>
+          <div class="room-occupancy"></div>
+        </a>
+      </li>
+    </template>
+    <form action="/newroom" method="post">
+      <input name="roomName"/>
+      <input name="maxPlayers" type="number" min="2" max="8" value="2"/>
+      <button>Create new room</button>
+    </form>
+    <%- include('partials/footer'); %>
+    <script src="client.js" type="module"></script>
+  </body>
+</html>
