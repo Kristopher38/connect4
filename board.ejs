@@ -4,7 +4,17 @@
     <%- include('partials/head'); %>
   </head>
   <body>
-    Lorem ipsum <%= roomID %>
+    Lorem ipsum <%= room.id %>
+    <div class="player-list">
+      <% for (let i = 0; i < room.maxPlayers; i++) { %>
+        <div class="player-slot">
+          <span class="player-name">
+              <% if (i < room.players.length) %>
+                <%= room.players[i] %> 
+          </span>
+        </div>
+      <% } %>
+    </div>
     <div class="board">
       <% for (let i = 0; i < 7; i++) { %>
         <div class="column">
@@ -16,10 +26,6 @@
     </div>
     
     <%- include('partials/footer'); %>
-    <script>
-      const roomID = <%= roomID %>
-      const nick = "<%= nick %>"
-    </script>
     <script src="/game.js" type="module"></script>
   </body>
 </html>
