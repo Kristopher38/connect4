@@ -7,6 +7,7 @@ export class GameFSM {
 
     async start() { 
         this.playerSockets = await this.roomSocket.fetchSockets()
+        console.log(this.playerSockets)
         this.roomSocket.emit("start")
         this.turn(0)
     }
@@ -14,6 +15,6 @@ export class GameFSM {
     turn(player) {
         this.playerSockets[player].emit("your turn")
         
-        if (winCondition) {}
+        // if (winCondition) {}
     }
 }

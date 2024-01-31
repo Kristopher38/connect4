@@ -66,7 +66,7 @@ app.post("/newroom", (req, res) => {
         roomID,
     )
     roomList[roomID] = room
-    games[roomID] = new GameFSM(room, io.to(`${roomID}`))
+    games[roomID] = new GameFSM(room, io.of("/room").to(`${roomID}`))
     io.emit("room list", roomList)
     res.redirect(`/room/${roomID}`)
 })
@@ -114,6 +114,7 @@ io.of("/room").on("connection", (socket) => {
             if (nick in room.players)
                 return // player already joined this room
             room.players.push(nick)
+            // TODO: deduplicate with socket.request.session
             socket.data.nick = nick
             socket.data.roomID = roomID
             socket.join(`${roomID}`)

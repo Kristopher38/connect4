@@ -7,6 +7,10 @@ function renderPlayerList(players) {
     }
 }
 
+document.querySelector("#start-button").addEventListener("click", function() {
+    socket.emit("start request")
+})
+
 socket.on("connect", async () => {
     let resp = await socket.emitWithAck("join")
     if (resp.status === "ok")
@@ -20,7 +24,7 @@ socket.on("room update", room => {
 })
 
 socket.on("start", () => {
-    
+    console.log("Game has started")
 })
 
 socket.on("your turn", () => {
