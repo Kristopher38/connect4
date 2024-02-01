@@ -1,17 +1,58 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #EAEDEE;
+}
+
+.centered-page {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    min-height: 300px;
+}
+
+.title-text {
+    font-weight: bold;
+    font-size: large;
+    margin: 4px;
+}
+
+.centered-text {
+    display: flex;
+    justify-content: center
+}
+
+.centered-v {
+    position: absolute;
+    top: 50%;
+}
+
+input {
+    padding: 12px 8px;
+    margin: 4px;
+    border-radius: 7px;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10.5px 20px;
+    /* font-weight: bold; */
+    font-size: medium;
+    border-radius: 7px;
+    background-color: #d4d8d9;
 }
 
 .room-entry {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: beige;
+    background-color: #83B2B6;
     display: flex;
 }
 
 .room-entry:hover {
-    background-color: cadetblue;
+    background-color: #316B65;
 }
 
 .room-name {

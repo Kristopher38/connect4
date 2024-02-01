@@ -4,10 +4,15 @@
     <%- include('partials/head'); %>
   </head>
   <body>
-    <form action="/anon-login" method="post">
-      <input name="username"/>
-      <button>Enter</button>
-    </form>
+    <div class="centered-page">
+      <div class="centered-v">
+        <div class="title-text centered-text">Enter your nickname</div>
+        <form action="/anon-login" method="post">
+          <input name="username"/>
+          <button>Join</button>
+        </form>
+      </div>
+    </div>
     <%- include('partials/footer'); %>
   </body>
 </html>
