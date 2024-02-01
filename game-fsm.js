@@ -54,14 +54,15 @@ export class GameFSM {
             for (let j = 0; j < 3; j++) {
                 // for every left-to-right upward diagonal start height check
                 // if it's nonempty and all elements identical
-                if (slice.every((col, idx) => col[j+idx] == slice[0][j]))
+                if (slice[0][j] != -1 && slice.every((col, idx) => col[j+idx] == slice[0][j]))
                     return slice[0][j]
                 // for every left-to-right downward diagonal start height check
                 // if it's nonempty and all elements identical
-                if (slice.every((col, idx) => col[j+3-idx] == slice[0][j+3]))
+                if (slice[0][j+3] != -1 && slice.every((col, idx) => col[j+3-idx] == slice[0][j+3]))
                     return slice[0][j+3]
             }
         }
+        return -1
     }
 
     async start() { 
