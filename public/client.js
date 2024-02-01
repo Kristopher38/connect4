@@ -1,8 +1,6 @@
 const socket = io("/")
 const rooms = document.querySelector("#room-list")
 
-let clientRoomList = {}
-
 socket.on("room list", serverRoomList => {
   let newRoomList = []
   for (const room of Object.values(serverRoomList)) {
@@ -16,5 +14,4 @@ socket.on("room list", serverRoomList => {
     newRoomList.push(entry)
   }
   rooms.replaceChildren(...newRoomList)
-  clientRoomList = serverRoomList
 })
