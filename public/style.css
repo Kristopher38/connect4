@@ -31,15 +31,27 @@ body {
     column-gap: 40px;
 }
 
-.disc {
-    width: 100px;
+.field {
+    border: 1px solid black;
     height: 100px;
+    width: 100px;
+}
+
+.disc {
     border-radius: 50px;
     box-shadow: 10px 5px 5px black;
 }
 
 .d-red {
     background-color: #e04d4d;
+}
+
+.d-yellow {
+    background-color: yellow;
+}
+
+.ghost {
+    opacity: 50%;
 }
 
 .disabled-url {
