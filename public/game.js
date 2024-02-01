@@ -1,6 +1,7 @@
 const socket = io("/room")
 
 const discStyles = ["d-red", "d-yellow"]
+const LAST_ROW = 5
 let ourPlayerIdx = 0
 let board = [
     [-1, -1, -1, -1, -1, -1],
@@ -24,7 +25,18 @@ function highlightPlayer(playerIdx) {
 }
 
 function renderBoard(board) {
+    Array.from(document.querySelector(".board").children).forEach((column, colIdx) => {
+        Array.from(column.children).forEach((space, rowIdx) => {
+            const disc = board[colIdx][5-rowIdx]
+            space.classList.remove("disc", "ghost", ...discStyles)
+            if (disc > -1)
+                space.classList.add("disc", discStyles[disc])
+        })
+    })
+}
 
+function firstFree(colIdx) {
+    return board[colIdx].findIndex(v => v === -1)
 }
 
 document.querySelector("#start-button").addEventListener("click", function() {
@@ -32,21 +44,22 @@ document.querySelector("#start-button").addEventListener("click", function() {
 })
 
 document.querySelectorAll(".column").forEach((column, colIdx) => {
-    const topmost = board[colIdx].findIndex(v => v == -1)
-    if (topmost > -1) {
-        const childIdx = 5 - topmost
-        column.addEventListener("mouseenter", ev => {
-            column.children[childIdx].classList.add("disc", "ghost", discStyles[ourPlayerIdx])
-        })
-        column.addEventListener("mouseleave", ev => {
-            if (board[colIdx][childIdx] === -1)
-                column.children[childIdx].classList.remove("disc", discStyles[ourPlayerIdx])
-            column.children[childIdx].classList.remove("ghost")
-        })
-        column.addEventListener("click", ev => {
+    column.addEventListener("mouseenter", ev => {
+        const freeIdx = firstFree(colIdx)
+        if (freeIdx > -1)
+            column.children[LAST_ROW - freeIdx].classList.add("disc", "ghost", discStyles[ourPlayerIdx])
+    })
+    column.addEventListener("mouseleave", ev => {
+        const freeIdx = firstFree(colIdx)
+        if (board[colIdx][freeIdx] === -1)
+            column.children[LAST_ROW - freeIdx].classList.remove("disc", discStyles[ourPlayerIdx])
+        column.children[LAST_ROW - freeIdx].classList.remove("ghost")
+    })
+    column.addEventListener("click", ev => {
+        const freeIdx = firstFree(colIdx)
+        if (freeIdx > -1)
             socket.emit("move", colIdx)
-        })
-    }
+    })
 })
 
 socket.on("connect", async () => {

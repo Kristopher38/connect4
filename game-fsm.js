@@ -23,7 +23,7 @@ export class GameFSM {
     }
 
     _placeDisc(playerIdx, colIdx) {
-        this.board[colIdx][self._firstFree(colIdx)] = playerIdx
+        this.board[colIdx][this._firstFree(colIdx)] = playerIdx
     }
 
     _checkWinCondition() {
@@ -44,13 +44,14 @@ export class GameFSM {
             // select 4 columns
             const slice = this.board.slice(start, start+4)
             // for every row in a column
-            for (let j = 0; j < 6; j++)
+            for (let j = 0; j < 6; j++) {
                 // check that they're nonempty and identical
                 if (slice[0][j] != -1 && slice.every(col => col[j] == slice[0][j]))
                     return slice[0][j]
+            }
 
             // diagonal win check
-            for (let j = 0; j < 3; j++)
+            for (let j = 0; j < 3; j++) {
                 // for every left-to-right upward diagonal start height check
                 // if it's nonempty and all elements identical
                 if (slice.every((col, idx) => col[j+idx] == slice[0][j]))
@@ -59,6 +60,7 @@ export class GameFSM {
                 // if it's nonempty and all elements identical
                 if (slice.every((col, idx) => col[j+3-idx] == slice[0][j+3]))
                     return slice[0][j+3]
+            }
         }
     }
 
@@ -67,7 +69,7 @@ export class GameFSM {
 
         // register appropriate handlers for events sent by players
         // once the game has started
-        this.playerSockets.forEach(playerSocket, playerIdx => {
+        this.playerSockets.forEach((playerSocket, playerIdx) => {
             playerSocket.on("move", colIdx => this.move(playerIdx, colIdx))
             playerSocket.emit("start", playerIdx)
         })
@@ -79,7 +81,7 @@ export class GameFSM {
         if (this.currentPlayer === playerIdx && !this._colFull(colIdx)) {
             const nextPlayerIdx = (playerIdx + 1) % this.room.players.length
             this._placeDisc(playerIdx, colIdx)
-            this.roomSocket("game update", this.board, nextPlayerIdx)
+            this.roomSocket.emit("game update", this.board, nextPlayerIdx)
 
             const winner = this._checkWinCondition()
             if (winner > -1)
@@ -91,7 +93,7 @@ export class GameFSM {
 
     end(winnerIdx) {
         this.roomSocket.emit("finished", winnerIdx)
-        this.playerSockets.forEach(playerSocket => playerSocket.off("move"))
+        this.playerSockets.forEach(playerSocket => playerSocket.off("move", playerSocket.listeners("move")[0]))
     }
 
     turn(playerIdx) {
