@@ -140,7 +140,6 @@ io.of("/room").on("connection", (socket) => {
         console.log(`Player "${socket.data.nick}" disconnected from room ${socket.data.roomID}`)
         if (socket.data.roomID in roomList) {
             const room = roomList[socket.data.roomID]
-            games[socket.data.roomID].reset()
             room.players = room.players.filter(x => x !== socket.data.nick)
             if (room.players.length == 0) {
                 delete roomList[socket.data.roomID]

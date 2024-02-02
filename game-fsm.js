@@ -16,7 +16,6 @@ export class GameFSM {
             [-1, -1, -1, -1, -1, -1],
         ]
         this.currentPlayer = -1
-        this.roomSocket.emit("game update", this.board, this.currentPlayer)
     }
 
     _firstFree(colIdx) {
@@ -73,6 +72,7 @@ export class GameFSM {
     async start() { 
         this.playerSockets = await this.roomSocket.fetchSockets()
         this.reset()
+        this.roomSocket.emit("game update", this.board, 0)
 
         // register appropriate handlers for events sent by players
         // once the game has started

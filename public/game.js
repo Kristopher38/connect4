@@ -21,7 +21,12 @@ function renderPlayerList(players) {
 }
 
 function highlightPlayer(playerIdx) {
-
+    let playerSlots = document.querySelectorAll(".player-slot")
+    Array.from(playerSlots).forEach(slot => {
+        slot.classList.remove("player-highlight")
+    })
+    if (playerIdx > -1)
+        playerSlots[playerIdx].classList.add("player-highlight")
 }
 
 function renderBoard(board) {
