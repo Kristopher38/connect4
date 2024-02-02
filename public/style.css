@@ -103,3 +103,7 @@ button {
 .player-highlight {
     background-color: aquamarine;
 }
+
+.player-winner {
+    background-color: gold;
+}

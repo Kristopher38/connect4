@@ -70,18 +70,21 @@ export class GameFSM {
     }
 
     async start() { 
-        this.playerSockets = await this.roomSocket.fetchSockets()
-        this.reset()
-        this.roomSocket.emit("game update", this.board, 0)
+        // check that the game hasn't started yet or has finished
+        if (this.currentPlayer === -1 || this._checkWinCondition() > -1) {
+            this.playerSockets = await this.roomSocket.fetchSockets()
+            this.reset()
+            this.roomSocket.emit("game update", this.board, 0)
 
-        // register appropriate handlers for events sent by players
-        // once the game has started
-        this.playerSockets.forEach((playerSocket, playerIdx) => {
-            playerSocket.on("move", colIdx => this.move(playerIdx, colIdx))
-            playerSocket.emit("start", playerIdx)
-        })
+            // register appropriate handlers for events sent by players
+            // once the game has started
+            this.playerSockets.forEach((playerSocket, playerIdx) => {
+                playerSocket.on("move", colIdx => this.move(playerIdx, colIdx))
+                playerSocket.emit("start", playerIdx)
+            })
 
-        this.turn(0)
+            this.turn(0)
+        }
     }
 
     move(playerIdx, colIdx) {

@@ -20,13 +20,14 @@ function renderPlayerList(players) {
     }
 }
 
-function highlightPlayer(playerIdx) {
+function highlightPlayer(playerIdx, isWinner) {
     let playerSlots = document.querySelectorAll(".player-slot")
     Array.from(playerSlots).forEach(slot => {
-        slot.classList.remove("player-highlight")
+        slot.classList.remove("player-highlight", "player-winner")
     })
+    const className = isWinner ? "player-winner" : "player-highlight"
     if (playerIdx > -1)
-        playerSlots[playerIdx].classList.add("player-highlight")
+        playerSlots[playerIdx].classList.add(className)
 }
 
 function renderBoard(board) {
@@ -91,9 +92,10 @@ socket.on("your turn", () => {
 socket.on("game update", (newBoard, currentPlayerIdx) => {
     board = newBoard
     renderBoard(board)
-    highlightPlayer(currentPlayerIdx)
+    highlightPlayer(currentPlayerIdx, false)
 })
 
 socket.on("finished", winnerIdx => {
     console.log(`Game finished, player ${winnerIdx} won`)
+    highlightPlayer(winnerIdx, true)
 })
