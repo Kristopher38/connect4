@@ -59,7 +59,8 @@ document.querySelectorAll(".column").forEach((column, colIdx) => {
         const freeIdx = firstFree(colIdx)
         if (board[colIdx][freeIdx] === -1)
             column.children[LAST_ROW - freeIdx].classList.remove("disc", discStyles[ourPlayerIdx])
-        column.children[LAST_ROW - freeIdx].classList.remove("ghost")
+        if (freeIdx > -1)
+            column.children[LAST_ROW - freeIdx].classList.remove("ghost")
     })
     column.addEventListener("click", ev => {
         const freeIdx = firstFree(colIdx)
