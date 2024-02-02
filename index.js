@@ -141,6 +141,7 @@ io.of("/room").on("connection", (socket) => {
         if (socket.data.roomID in roomList) {
             const room = roomList[socket.data.roomID]
             room.players = room.players.filter(x => x !== socket.data.nick)
+            games[socket.data.roomID].reset()
             if (room.players.length == 0) {
                 delete roomList[socket.data.roomID]
                 delete games[socket.data.roomID]
