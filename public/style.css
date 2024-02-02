@@ -37,7 +37,6 @@ button {
     cursor: pointer;
     text-decoration: none;
     padding: 10.5px 20px;
-    /* font-weight: bold; */
     font-size: medium;
     border-radius: 7px;
     background-color: #d4d8d9;
@@ -45,10 +44,22 @@ button {
 
 .room-entry {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    padding: 5px;
+    margin: 8px;
+    border: 2px solid #316B65;
     background-color: #83B2B6;
-    display: flex;
+    border-radius: 7px;
+    display: block;
+}
+
+.bold-large {
+    font-size: larger;
+    font-weight: bold;
+    margin: 5px;
+}
+
+#room-list {
+    padding: 0;
 }
 
 .room-entry:hover {
@@ -56,13 +67,24 @@ button {
 }
 
 .room-name {
-    flex: 1;
-    border: 2px dashed red;
+    font-size: medium;
+    display: inline-block;
+    padding: 4px;
+    width: 95%;
+}
+
+.room-input {
+    width: 300px;
+}
+
+.room-url {
+    text-decoration: none;
+    color: black;
 }
 
 .room-occupancy {
-    flex: 0 0 120px;
-    border: 2px dashed blue;
+    float: right;
+    padding: 4px;
 }
 
 .board {

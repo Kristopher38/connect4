@@ -4,6 +4,7 @@
     <%- include('partials/head'); %>
   </head>
   <body>
+    <div class="bold-large">Room list</div>
     <ul id="room-list">
 
     </ul>
@@ -15,11 +16,13 @@
         </a>
       </li>
     </template>
-    <form action="/newroom" method="post">
-      <input name="roomName"/>
-      <input name="maxPlayers" type="number" min="2" max="8" value="2"/>
-      <button>Create new room</button>
-    </form>
+    <div class="centered-page">
+      <form action="/newroom" method="post">
+        <input class="room-input" name="roomName"/>
+        <input hidden="true" name="maxPlayers" type="number" min="2" max="8" value="2"/>
+        <button>Create new room</button>
+      </form>
+    </div>
     <%- include('partials/footer'); %>
     <script src="client.js" type="module"></script>
   </body>
