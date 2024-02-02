@@ -4,29 +4,28 @@
     <%- include('partials/head'); %>
   </head>
   <body>
-    Lorem ipsum <%= room.id %>
-    <div class="player-list">
-      <% for (let i = 0; i < room.maxPlayers; i++) { %>
-        <div class="player-slot">
-          <span class="player-name">
-              <% if (i < room.players.length) %>
-                <%= room.players[i] %> 
-          </span>
-        </div>
-      <% } %>
+    <div class="centered-page">
+      <div class="board">
+        <% for (let i = 0; i < 7; i++) { %>
+          <div class="column">
+            <% for (let j = 0; j < 6; j++) { %>
+              <div class="field"></div>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+      <div class="player-list">
+        <% for (let i = 0; i < room.maxPlayers; i++) { %>
+          <div class="player-slot">
+            <span class="player-name">
+                <% if (i < room.players.length) %>
+                  <%= room.players[i] %>
+            </span>
+          </div>
+        <% } %>
+        <button id="start-button">Start game</button>
+      </div>
     </div>
-    <div class="board">
-      <% for (let i = 0; i < 7; i++) { %>
-        <div class="column">
-          <% for (let j = 0; j < 6; j++) { %>
-            <div class="field"></div>
-          <% } %>
-        </div>
-      <% } %>
-    </div>
-
-    <button id="start-button">Start game</button>
-    
     <%- include('partials/footer'); %>
     <script src="/game.js" type="module"></script>
   </body>
