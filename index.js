@@ -124,9 +124,6 @@ io.of("/room").on("connection", (socket) => {
             // this doesn't leak memory as handler will only be
             // installed once per socket
             socket.on("start request", async () => {
-                if (socket.data.nick != room.players[0])
-                    return // ignore requests from non-admin
-
                 if (room.players.length >= 2)
                     await game.start()
             })
